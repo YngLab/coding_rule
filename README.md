@@ -49,7 +49,7 @@
 ```scss
 /*推奨*/
 .selector {
-  propaty: value;
+  color: black;
 }
 ```
 > [Sublime Text 3 - インデントの設定（スペース・タブ） - 開発メモ - Webkaru](http://webkaru.net/dev/sublime-text-3-indent/)
@@ -102,6 +102,9 @@
 ***
 
 #### パッチノート（更新履歴）
+##### Ver. 0.3.1
+一部GitHubの挙動に合わせ修正
+
 ##### Ver. 0.3.0
 共通の規約をまとめた
 
