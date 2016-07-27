@@ -219,13 +219,6 @@ typeは自動認識されるため記述しない。
 ```
 
 ## CSSコーディング規約
-#### SCSSの利用
-コーディングはSCSSで行い、HTMLではコンパイル後のCSSを読み込む。  
-HTMLで読み込むCSSの数は極力少なくなるよう留意する。  
-
-#### SCSSコンパイラ設定
-アウトプットスタイルはexpandedを使用する。
-> おすすめのコンパイラ：[フリーのSass,LessコンパイラKoala【Win,Mac】 | Sou-Lablog](http://blog.sou-lab.com/koala/)
 
 #### プロパティ記述の際のスペース
 プロパティ:_設定値;のようにスペースを利用する。
@@ -297,32 +290,114 @@ HTMLで読み込むCSSの数は極力少なくなるよう留意する。
 }
 ```
 
+#### セレクタに使用する要素
+出来る限り タグ、idをセレクタに使用しない。
+
 #### !importantの使用
 !importantは**いかなる理由があっても使用しない。**  
 使用する必要を感じた際は設計から見直す。
 
-#### id,classの命名定義
-BEMを採用する。  
-> 意味不明な命名を避けるため。
+### id,classの命名定義
+BEMにおけるBlock, Element, Modifierを次のように繋いで使用する。  
+BEMに関する解説は下記参照。
 
-##### BEMについて
+```scss
+.Block_Element-State
+.Block_Element
+.Block-State
+```
+
+グローバルな設定はBlockを「g」として記述する。
+
+```scss
+.g_Element
+.g-State
+```
+
+長い名前に関してはキャメルケースを使用する。
+
+```scss
+.rightMenu
+```
+
+スタイルを示す命名は避ける。
+
+```scss
+/* 非推奨 */
+.mb50
+.red
+```
+
+#### BEMについて
 CSS設計手法の一つ。  
+拡張、再利用しやすいネーミングが特徴。
 
 
+#### 考え方
+以下の3つの形で捉える。
+
+- Block（塊）
+- Element（要素）
+- Modifier（状態）
+
+##### Block
+コンテンツを含む大きな塊。
+
+##### Element
+Block内の要素。  
+「 _ 」で繋ぐ。
+
+##### Modifier
+エレメントまたはブロックの状態。  
+「 - 」で繋ぐ。
+
+#### SCSSの利用
+コーディングはSCSSで行い、HTMLではコンパイル後のCSSを読み込む。  
+HTMLで読み込むCSSの数は極力少なくなるよう留意する。  
+
+#### SCSSコンパイラ設定
+アウトプットスタイルはexpandedを使用する。
+> おすすめのコンパイラ：[フリーのSass,LessコンパイラKoala【Win,Mac】 | Sou-Lablog](http://blog.sou-lab.com/koala/)
 
 ### SCSS設計
 基本的には[SMACSS](https://smacss.com/)を採用する。  
 
-##### カテゴライズ
-- Base
+#### SMACSSについて
+SCSS設計の一つ。  
+今回はSCSSのファイル分割の基準として採用する。
 
+#### 考え方
+以下の4つの形で捉える。
+
+- Base
 - Layout
 - Module
 - State
-- Theme
 
-#### リセット
-基本のリセットスタイルには[sanitize.css](http://coliss.com/articles/build-websites/operation/css/about-sanitize-css.html)を利用する。
+> 本来であればThemeが5つ目として存在するが、今回は必要ないため省く。
+
+##### Base
+全体に共通する各要素のデフォルト値（背景色・文字色・フォントなど）を設定する。  
+基本のリセットスタイルには[sanitize.css](http://coliss.com/articles/build-websites/operation/css/about-sanitize-css.html)を利用する。  
+セレクタにタグ、idを使用してもよい。  
+ただし、widthやmargin, paddingなどを設定しない。
+
+##### Layout
+おおまかなレイアウトを設定する。  
+BEMでのBlockに対応する。  
+セレクタにidを使用してもよい。  
+場所に依存するセレクタにはならないよう留意する。
+
+##### Module
+レイアウトパターンに含まれるほぼすべての要素を示す。  
+BEMでのElementに対応する。  
+ボタンや見出し、リンクなど再利用されるオブジェクト全てを示す。
+
+##### State
+Moduleに対して状態変化をもたせる際に利用する。  
+BEMでのModifierに対応する。  
+Javascriptなどで要素に変化をもたせる場合などで利用する。
+
 
 #### @extendの使用は避ける
 extend元のスタイルを変更する際に影響する範囲が見えないため、極力避ける。
@@ -330,6 +405,9 @@ extend元のスタイルを変更する際に影響する範囲が見えない�
 ***
 
 #### パッチノート（更新履歴）
+##### Ver.0.7.0
+CSSに関する規約を追記
+
 ##### Ver.0.5.1
 文末「。」をつけるよう規約を変更
 
@@ -370,7 +448,7 @@ HTMLに関する規約を追記
 	- [x] このドキュメントに関する情報をまとめる: 1
 	- [x] 共通の規約をまとめる: 2
 	- [x] HTMLに関する規約をまとめる: 2
-	- [ ] CSS に関する規約をまとめる: 2
+	- [x] CSS に関する規約をまとめる: 2
 	- [ ] JS  に関する規約をまとめる: 2
 	- [ ] PHP,その他に関する規約をまとめる: 1
 - 一度コミットしたものに変更を加えた場合、Ver.0.b.cのcを+1する
