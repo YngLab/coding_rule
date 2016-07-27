@@ -2,7 +2,7 @@
 本研究室が関わるWebサイト制作プロジェクトにて適用するコーディング規約をまとめます。
 
 最終更新：16/7/27  
-**Ver.0.7.1**
+**Ver.0.7.2**
 
 ***
 ##この規約に関して
@@ -306,6 +306,7 @@ opacity: .8;
 
 #### プロパティの宣言順序
 プロパティの宣言はアルファベット順に行う。
+
 ```scss
 boader: 1px;
 color: red;
@@ -418,6 +419,31 @@ Moduleに対して状態変化をもたせる際に利用する。
 BEMでのModifierに対応する。  
 Javascriptなどで要素に変化をもたせる場合などで利用する。
 
+#### ファイル構造
+基本的にはbase, layout, moduleをフォルダにワケ、それぞれの名前でSCSSファイルを作成する。  
+style.scssは他のSCSSファイルのimportのみを行う。  
+_setting.scssには変数、mixinなどを記述する。
+```
+├── style.scss
+├── _setting.scss
+├── base
+│   ├── _sanitize.scss
+│   └── _util.scss
+├── layout
+│   ├── _main.scss
+│   ├── _contacts.scss
+│   ├── _footer.scss
+│   ├── _navbar.scss
+│   └── _article.scss
+└── module
+    ├── _main.scss
+    ├── _contacts.scss
+    ├── _dropdown.scss
+    ├── _footer.scss
+    ├── _navbar.scss
+    └── _article.scss
+```
+
 
 #### @extendの使用は避ける
 extend元のスタイルを変更する際に影響する範囲が見えないため、極力避ける。
@@ -425,6 +451,9 @@ extend元のスタイルを変更する際に影響する範囲が見えない�
 ***
 
 #### パッチノート（更新履歴）
+##### Ver.0.7.2
+SCSSのファイル構造を追記
+
 ##### Ver.0.7.1
 CSSに関する規約を追記
 
